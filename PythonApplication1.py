@@ -11,23 +11,23 @@ kilimall_html = papito.read()
 papito.close()
 
 page_soup = soup(kilimall_html, "html.parser")
-print(page_soup.body.span)
 
 holders = page_soup.findAll("li",{"class" : "item"})
 len(holders)
 
-filename = "kilimalldailydeals1.csv"
-f = open (filename, "w")
-headers = "productName, offerPrice\n"
-f.write(headers)
+filename = "kilimalldeals.csv"
+fif = open (filename, "w")
+headers = " Product_Name , Prices \n"
+fif.write(headers)
 
 for holder in holders:
     name_holder = name_holder = holder.findAll("h2", {"class":"goods-name"})
     productName = name_holder[0].text
     price_holder = holder.findAll("div", {"class":"goods-price"})
     offerPrice = price_holder[0].text
-    f.write(productName.replace("," , "|") + "," + offerPrice.replace("," , " ") + "\n")
-f.close()
+    offerPrice = offerPrice.replace("\n", "|")
+    fif.write( productName.replace("," , "|") + "," + offerPrice.replace("," , "-") + "\n")
+fif.close()
 
 #for holder in holders:
 #    name_holder = name_holder = holder.findAll("h2", {"class":"goods-name"})
